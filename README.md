@@ -1,3 +1,3 @@
-#Connect Three: tictactoe
+# Connect Three: tictactoe #
 
 Frist android game project 
