@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     //every odd number = yellow, every even number = red
-    public int counter = 1;
+    public int counter = 0;
 
     //0 = yellow's turn, 1 = red's turn
     public int turn = 0;
@@ -24,13 +24,18 @@ public class MainActivity extends AppCompatActivity {
     int[][] winningState = {{0,3,6},{1,4,7},{2,5,8},{0,1,2},{3,4,5},{6,7,8},{0,4,8},{2,4,6}};
     boolean gameIsActive = true;
 
+    public void countReceiver(){
+        counter ++;
+        TextView countView = (TextView) findViewById(R.id.moveNum);
+        countView.setText(Integer.toString(counter));
+    }
+
     public void dropIn(View view){
 
 
         ImageView box = (ImageView) view;
 
         int tappedCounter = (Integer.parseInt(box.getTag().toString()))-1;
-        System.out.println(Integer.toString(tappedCounter));
         if (gameState[tappedCounter] == 2 && gameIsActive) {
             gameState[tappedCounter] = turn;
             box.setTranslationY(-1000f);
@@ -38,13 +43,13 @@ public class MainActivity extends AppCompatActivity {
             if (turn == 0) {
                 box.setImageResource(R.drawable.yellow);
                 box.animate().translationYBy(1000f).rotation(3600).setDuration(300);
-                counter++;
+                countReceiver();
                 turn = 1;
 
             } else {
                 box.setImageResource(R.drawable.red);
                 box.animate().translationYBy(1000f).rotation(3600).setDuration(300);
-                counter++;
+                countReceiver();
                 turn = 0;
             }
 
@@ -61,8 +66,9 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     winText.setText("Red player has won!");
                 }
-
+                ViewCompat.setTranslationZ(winLayout,1.0f);
                 winLayout.setAlpha(1f);
+                Log.i("counter", Integer.toString(counter));
             }
         }
         boolean gameIsOver = true;
@@ -79,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
                 TextView winText = (TextView) findViewById(R.id.winText);
                 winText.setText("The game is a draw");
                 winLayout.setAlpha(1f);
-                winLayout.bringToFront();
                 ViewCompat.setTranslationZ(winLayout,1.0f);
+                Log.i("Counter", Integer.toString(counter));
             }
 
     }
