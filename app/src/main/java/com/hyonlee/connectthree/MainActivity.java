@@ -1,5 +1,6 @@
 package com.hyonlee.connectthree;
 
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -78,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 TextView winText = (TextView) findViewById(R.id.winText);
                 winText.setText("The game is a draw");
                 winLayout.setAlpha(1f);
+                winLayout.bringToFront();
+                ViewCompat.setTranslationZ(winLayout,1.0f);
             }
 
     }
